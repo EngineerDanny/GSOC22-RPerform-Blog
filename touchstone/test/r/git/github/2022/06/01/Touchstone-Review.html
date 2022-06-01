@@ -108,8 +108,6 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#reviewing-the-touchstone-r-package">REVIEWING THE TOUCHSTONE R PACKAGE</a>
-<ul>
 <li class="toc-entry toc-h2"><a href="#1-introduction">1. Introduction</a></li>
 <li class="toc-entry toc-h2"><a href="#2-concept">2. Concept</a></li>
 <li class="toc-entry toc-h2"><a href="#3-installation">3. Installation</a></li>
@@ -124,6 +122,10 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#ii-benchmark_run">(ii) benchmark_run</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#usage-1">Usage</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#ii-benchmark_analyze">(ii) benchmark_analyze</a>
+<ul>
 <li class="toc-entry toc-h4"><a href="#usage-2">Usage</a></li>
 </ul>
 </li>
@@ -134,12 +136,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#usage-3">Usage</a></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul><h1 id="reviewing-the-touchstone-r-package">
-<a class="anchor" href="#reviewing-the-touchstone-r-package" aria-hidden="true"><span class="octicon octicon-link"></span></a>REVIEWING THE TOUCHSTONE R PACKAGE</h1>
-
-<h2 id="1-introduction">
+</ul><h2 id="1-introduction">
 <a class="anchor" href="#1-introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Introduction</h2>
 <p><a href="https://github.com/lorenzwalthert/touchstone"><code class="language-plaintext highlighter-rouge">Touchstone</code></a> is an R tool which provides accurate benchmarking features for testing other R packages. It provides continuous benchmarking with reliable relative measurement and uncertainty reporting.
 <strong>It is enriched with features which are very useful especially with respect to merging a Pull Request into target branch.</strong> Therefore, it is integrated with GitHub Continuous Integration(CI) which helps to automate the whole process.</p>
@@ -244,6 +241,9 @@ and <code class="language-plaintext highlighter-rouge">touchstone-comment.yaml</
 <code class="language-plaintext highlighter-rouge">n</code> is the number of times benchmarks should be run for each of the branches. <br>
 <code class="language-plaintext highlighter-rouge">path_pkg</code> represents the path to the package <br></p>
 
+<h3 id="ii-benchmark_analyze">
+<a class="anchor" href="#ii-benchmark_analyze" aria-hidden="true"><span class="octicon octicon-link"></span></a>(ii) <code class="language-plaintext highlighter-rouge">benchmark_analyze</code>
+</h3>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">touchstone</span><span class="o">::</span><span class="n">benchmark_analyze</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 <p><code class="language-plaintext highlighter-rouge">benchmark_analyze</code> creates artifacts used downstream in the GitHub Action to turn raw benchmark results into text and figures.</p>
@@ -281,7 +281,6 @@ and <code class="language-plaintext highlighter-rouge">touchstone-comment.yaml</
 <br></p>
 
 <p>After committing and pushing the workflow files to default branch, <code class="language-plaintext highlighter-rouge">Github CI</code> will run the benchmarks on every pull request and on each commit while that pull request is open.</p>
-
 
   </div><a class="u-url" href="/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/01/Touchstone-Review.html" hidden></a>
 </article>
