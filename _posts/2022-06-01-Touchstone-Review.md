@@ -7,8 +7,6 @@ categories: [touchstone, test, r, git, github]
 title: Reviewing The Touchstone R Package
 ---
 
-# REVIEWING THE TOUCHSTONE R PACKAGE
-
 ## 1. Introduction
 [`Touchstone`](https://github.com/lorenzwalthert/touchstone) is an R tool which provides accurate benchmarking features for testing other R packages. It provides continuous benchmarking with reliable relative measurement and uncertainty reporting.
 **It is enriched with features which are very useful especially with respect to merging a Pull Request into target branch.** Therefore, it is integrated with GitHub Continuous Integration(CI) which helps to automate the whole process. 
@@ -94,7 +92,7 @@ benchmark_run(
 `n` is the number of times benchmarks should be run for each of the branches. <br>
 `path_pkg` represents the path to the package <br>
 
-
+### (ii) `benchmark_analyze`
 ``` r
 touchstone::benchmark_analyze()
 ```
@@ -133,6 +131,3 @@ run_script(
 <br>
 
 After committing and pushing the workflow files to default branch, `Github CI` will run the benchmarks on every pull request and on each commit while that pull request is open.
-
-
-
