@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Sample RPerform library usage | GSOC22-RPerform-Blog</title>
+<title>Sample RPerform Package Usage | GSOC22-RPerform-Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Sample RPerform library usage" />
+<meta property="og:title" content="Sample RPerform Package Usage" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A minimal example of using Rperform to track quantitative performance metrics of code" />
 <meta property="og:description" content="A minimal example of using Rperform to track quantitative performance metrics of code" />
@@ -16,9 +16,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-05-24T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Sample RPerform library usage" />
+<meta property="twitter:title" content="Sample RPerform Package Usage" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-24T00:00:00-05:00","datePublished":"2022-05-24T00:00:00-05:00","description":"A minimal example of using Rperform to track quantitative performance metrics of code","headline":"Sample RPerform library usage","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-24T00:00:00-05:00","datePublished":"2022-05-24T00:00:00-05:00","description":"A minimal example of using Rperform to track quantitative performance metrics of code","headline":"Sample RPerform Package Usage","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -73,7 +73,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Sample RPerform library usage</h1><p class="page-description">A minimal example of using Rperform to track quantitative performance metrics of code</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-24T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Sample RPerform Package Usage</h1><p class="page-description">A minimal example of using Rperform to track quantitative performance metrics of code</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-24T00:00:00-05:00" itemprop="datePublished">
         May 24, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -102,34 +102,28 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h1"><a href="#sample-usage-of-the-rperform-library">Sample usage of the RPerform library</a></li>
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
 <li class="toc-entry toc-h1"><a href="#installation">Installation</a></li>
 <li class="toc-entry toc-h1"><a href="#basic-examples">Basic examples</a></li>
-</ul><h1 id="sample-usage-of-the-rperform-library">
-<a class="anchor" href="#sample-usage-of-the-rperform-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample usage of the RPerform library</h1>
+</ul><h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
-<p>Rperform is a package that allows R developers to track quantitative performance metrics of their code. It focuses on providing changes in a package’s performance metrics, related to runtime and memory, over different git versions and across git branches. Rperform can be integrated with Travis-CI to do performance testing during Travis builds by making changes to the repo’s .travis.yml file. <strong>It can prove to be particularly useful while measuring the possible changes which can be introduced by a pull request (PR).</strong></p>
+<p><code class="language-plaintext highlighter-rouge">Rperform</code> is a package that allows R developers to track quantitative performance metrics of their code. It helps to provide changes in a package’s performance metrics related to runtime and memory. It is used to access performance metrics over different git versions and across git branches. It can also be integrated with <code class="language-plaintext highlighter-rouge">Travis-CI</code> for performance testing during Travis builds by making changes to the repo’s <code class="language-plaintext highlighter-rouge">.travis.yml</code> file. It can prove to be particularly useful while measuring the possible changes which can be introduced by a pull request (PR).</p>
 
-<p><strong><em>For integrating Rperform with your travis build, check out the instructions provided on the <a href="https://github.com/analyticalmonk/Rperform/wiki/Integrating-Rperform-with-Travis-CI">Rperform Wiki</a></em></strong>.</p>
-
-<p><strong><em>For more information, tutorials and related blog posts, go through the <a href="https://github.com/analyticalmonk/Rperform/wiki/Integrating-Rperform-with-Travis-CI">Rperform wiki</a>.</em></strong></p>
-
-<p><em>The project was initiated as a part of the <a href="https://github.com/rstats-gsoc/gsoc2015/wiki/Test-timings-on-Travis">Google Summer of Code 2015</a> program. <a href="https://github.com/tdhock">Toby Dylan Hocking</a> and <a href="https://github.com/hadley">Hadley Wickham</a> were the mentors.</em></p>
-
-<p><em>The project was accepted into the <a href="https://github.com/rstats-gsoc/gsoc2016/wiki/Rperform:-Performance-analysis-of-R-package-code">Google Summer of Code 2016</a> program. <a href="https://github.com/joshuaulrich">Joshua Ulrich</a> and <a href="https://github.com/tdhock">Toby Dylan Hocking</a> were the mentors.</em></p>
+<p><em>The project was initiated as a part of the <a href="https://github.com/rstats-gsoc/gsoc2015/wiki/Test-timings-on-Travis">Google Summer of Code 2015</a> program and was accepted into the <a href="https://github.com/rstats-gsoc/gsoc2016/wiki/Rperform:-Performance-analysis-of-R-package-code">Google Summer of Code 2016</a> program.</em></p>
 
 <h1 id="installation">
 <a class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
 
 <ul>
-  <li>You can install the package from github using <code class="language-plaintext highlighter-rouge">devtools</code>*.</li>
+  <li>You can install the package from github using :</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">devtools</span><span class="p">)</span><span class="w">
 </span><span class="n">install_github</span><span class="p">(</span><span class="s2">"analyticalmonk/Rperform"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>or,</p>
+<p>or</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"analyticalmonk/Rperform"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -137,9 +131,7 @@ window.onload = wrap_img;
 <h1 id="basic-examples">
 <a class="anchor" href="#basic-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic examples</h1>
 
-<p><em>For detailed information regarding Rperform’s plotting functions, check out the <strong><a href="https://github.com/analyticalmonk/Rperform/wiki/Plotting-package-metrics-with-Rperform">Wiki</a></strong>.</em></p>
-
-<p><strong>IMPORTANT</strong>: The Rperform package requires you to set the current directory to the concerned git repository before using the functions.</p>
+<p><strong>NOTE</strong>: The Rperform package requires you to set the current directory to the concerned git repository before using the functions.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">setwd</span><span class="p">(</span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Path/to/repo"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -215,15 +207,7 @@ window.onload = wrap_img;
 </span><span class="m">13.6</span><span class="w">       </span><span class="n">test</span><span class="o">-</span><span class="n">join.r</span><span class="w">     </span><span class="n">leak_mb</span><span class="w">      </span><span class="n">pass</span><span class="w">      </span><span class="m">0.148</span><span class="w"> </span><span class="n">Can</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">CRA</span><span class="w"> </span><span class="m">2015-01-08</span><span class="w"> </span><span class="m">14</span><span class="o">:</span><span class="m">09</span><span class="o">:</span><span class="m">43</span><span class="w">
 </span></code></pre></div></div>
 
-  </div><!-- from https://github.com/utterance/utterances -->
-<script src="https://utteranc.es/client.js"
-        repo="EngineerDanny/GSOC22-RPerform-Blog"
-        issue-term="title"
-        label="blogpost-comment"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
-</script><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html" hidden></a>
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform.html" hidden></a>
 </article>
 
       </div>
