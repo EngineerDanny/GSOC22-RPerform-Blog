@@ -29,7 +29,7 @@ install.packages("touchstone")
  devtools::install_github("lorenzwalthert/touchstone")
  ``` 
 
-## 4. Usage
+## 4. Package Usage
 Initialize touchstone by running <br> 
 ``` r 
 touchstone::use_touchstone()
