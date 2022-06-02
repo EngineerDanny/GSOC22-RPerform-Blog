@@ -63,6 +63,7 @@ Benchmark result is posted as a comment in the Pull Request. An example is shown
 This is how benchmark results would change (along with a 95% confidence interval in relative change) if `b61b5addb59ac69eca91ee97caf7e5f5ef986aed` is merged into main:
 * &nbsp;&nbsp;:ballot_box_with_check:random_test: 1.24µs -> 1.3µs [-5.9%, +15.17%]
 Further explanation regarding interpretation and methodology can be found in the [documentation](https://lorenzwalthert.github.io/touchstone/articles/inference.html).
+
 ---
 
 
