@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Testing Touchstone with a simple For Loop | GSOC22-RPerform-Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Testing Touchstone with a simple For Loop" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A minimal testing of touchstone by using a simple for loop" />
+<meta property="og:description" content="A minimal testing of touchstone by using a simple for loop" />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/02/Touchstone-Test-1.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/02/Touchstone-Test-1.html" />
+<meta property="og:site_name" content="GSOC22-RPerform-Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-02T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Testing Touchstone with a simple For Loop" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-02T00:00:00-05:00","datePublished":"2022-06-02T00:00:00-05:00","description":"A minimal testing of touchstone by using a simple for loop","headline":"Testing Touchstone with a simple For Loop","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/02/Touchstone-Test-1.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/02/Touchstone-Test-1.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/GSOC22-RPerform-Blog/">GSOC22-RPerform-Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/GSOC22-RPerform-Blog/search/">Search</a><a class="page-link" href="/GSOC22-RPerform-Blog/categories/">Tags</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Testing Touchstone with a simple For Loop</h1>
+<p class="page-description">A minimal testing of touchstone by using a simple for loop</p>
+<p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-02T00:00:00-05:00" itemprop="datePublished">
+        Jun 2, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i> 
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#touchstone">touchstone</a>
+         
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#test">test</a>
+         
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#r">r</a>
+         
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#git">git</a>
+         
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#github">github</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h3"><a href="#test">Test</a></li>
+<li class="toc-entry toc-h3"><a href="#results">Results</a></li>
+<li class="toc-entry toc-h3"><a href="#conclusion">Conclusion</a></li>
+</ul>
+<h3 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h3>
+<p>I did a minimal testing of touchstone by using a simple <code class="language-plaintext highlighter-rouge">for</code> loop.
+Therefore, I created a simple R package repository on GitHub called 
+<a href="https://github.com/EngineerDanny/TouchTest">TouchTest</a> .
+Inside the <code class="language-plaintext highlighter-rouge">script.R</code> file, there exists a function <code class="language-plaintext highlighter-rouge">touchstone::benchmark_run</code> which helps to benchmark any function call from the package.</p>
+
+<p>To make it simple to test the minimal functionality of <code class="language-plaintext highlighter-rouge">touchstone</code>, I modified the function and wrote the <code class="language-plaintext highlighter-rouge">for</code> loop inside a <code class="language-plaintext highlighter-rouge">random_test</code> function.</p>
+
+<h3 id="test">
+<a class="anchor" href="#test" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test</h3>
+<p>On the <code class="language-plaintext highlighter-rouge">main</code> branch, inside the <code class="language-plaintext highlighter-rouge">script.R</code> file, we basically loop from 1 to 10 printing the current number.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># benchmark a function call from your package (two calls per branch)</span><span class="w">
+</span><span class="n">touchstone</span><span class="o">::</span><span class="n">benchmark_run</span><span class="p">(</span><span class="w">
+  </span><span class="c1"># expr_before_benchmark = source("dir/data.R"), #&lt;-- TODO OTPIONAL setup before benchmark</span><span class="w">
+  </span><span class="n">random_test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">print</span><span class="p">(</span><span class="s2">"Hello, world!"</span><span class="p">)</span><span class="w">
+    </span><span class="c1"># Loop from 1 to 10</span><span class="w">
+    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="c1">#&lt;- TODO put the call you want to benchmark here</span><span class="w">
+  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>However, onn the <code class="language-plaintext highlighter-rouge">devel</code> branch, there is a minor change in the for loop. 
+We print from 1 to 100 instead.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># benchmark a function call from your package (two calls per branch)</span><span class="w">
+</span><span class="n">touchstone</span><span class="o">::</span><span class="n">benchmark_run</span><span class="p">(</span><span class="w">
+  </span><span class="c1"># expr_before_benchmark = source("dir/data.R"), #&lt;-- TODO OTPIONAL setup before benchmark</span><span class="w">
+  </span><span class="n">random_test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">print</span><span class="p">(</span><span class="s2">"Hello, world!"</span><span class="p">)</span><span class="w">
+    </span><span class="c1"># Loop from 1 to 100</span><span class="w">
+    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w"> </span><span class="c1">#&lt;- TODO put the call you want to benchmark here</span><span class="w">
+  </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="results">
+<a class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
+<p>It is quite obvious that the <code class="language-plaintext highlighter-rouge">1 to 100 loop</code> will take longer time than the <code class="language-plaintext highlighter-rouge">1 to 10 loop</code>. Inside the <code class="language-plaintext highlighter-rouge">touchstone</code> directory, <code class="language-plaintext highlighter-rouge">plots</code> and <code class="language-plaintext highlighter-rouge">pr-comment</code> folders are created naturally containing the image of the plot and the PR comment text respectively.  Below shows the results as expected.</p>
+
+<p><img src="https://raw.githubusercontent.com/EngineerDanny/GSOC22-RPerform-Blog/master/images/for-loop-touch-test.png" alt="time plot" title="Time Plot"></p>
+
+<p>The graph above demonstrates the visualizations of the distribution of the timings for both branches.
+It can be inferred from the graph above that the density of the <code class="language-plaintext highlighter-rouge">devel</code> branch is greater than that of the <code class="language-plaintext highlighter-rouge">main</code> branch. This is due to the fact that the <code class="language-plaintext highlighter-rouge">devel</code> branch entails looping 100 times whereas the <code class="language-plaintext highlighter-rouge">main</code> branch entails looping just 10 times.</p>
+
+<p>Benchmark result is posted as a comment in the Pull Request. An example is shown below :</p>
+
+<hr>
+<p>This is how benchmark results would change (along with a 95% confidence interval in relative change) if <code class="language-plaintext highlighter-rouge">b61b5addb59ac69eca91ee97caf7e5f5ef986aed</code> is merged into main:</p>
+<ul>
+  <li>  <img class="emoji" title=":ballot_box_with_check:" alt=":ballot_box_with_check:" src="https://github.githubassets.com/images/icons/emoji/unicode/2611.png" height="20" width="20">random_test: 1.24µs -&gt; 1.3µs [-5.9%, +15.17%]
+Further explanation regarding interpretation and methodology can be found in the <a href="https://lorenzwalthert.github.io/touchstone/articles/inference.html">documentation</a>.
+—</li>
+</ul>
+
+<p>The results can be interpreted as an increase in time by approximately 15.17% from the <code class="language-plaintext highlighter-rouge">devel</code> branch when compared to the <code class="language-plaintext highlighter-rouge">main</code> branch. To avoid any uncertainties, under the hood, the code is run <code class="language-plaintext highlighter-rouge">n</code> times based on the confidence interval. The confidence interval shows the certainties about any estimated differences. Hence, a 0.95 confidence interval tells that if the benchmarking experiment were to be repeated 100 times, the estimated change in speed would be in the interval 95 out of 100 times. The graph generally gets noisy when there is no significant speed change.</p>
+
+<p>Therefore, merging a Pull Request of such nature will mean that the code will be a little bit slower. However, checking from the speed decrease implies that it will hardly be noticed practically. There is always a trade-off between time and functionality especially when a new feature is introduced in a code. This is the reason why the Confidence Interval is very crucial with regards to code benchmarking.</p>
+
+<h3 id="conclusion">
+<a class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h3>
+<p>Even though, the <code class="language-plaintext highlighter-rouge">touchstone</code> package is an experimental R package, it aims on providing the means to perform accurate benchmarking tests for package developers. Due to the fact that Pull requests are natural units for measuring speed, connecting benchmarking to pull requests makes it easier and faster to use.</p>
+
+
+  </div>
+<a class="u-url" href="/GSOC22-RPerform-Blog/touchstone/test/r/git/github/2022/06/02/Touchstone-Test-1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/GSOC22-RPerform-Blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/GSOC22-RPerform-Blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blogging platform to track my progress in GSOC 2022 | RPerform.</p>
+      </div>
+    </div>
+
+    <div class="social-links">
+<ul class="social-media-list">
+<li><a rel="me" href="https://github.com/EngineerDanny" target="_blank" title="EngineerDanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#github"></use></svg></a></li>
+<li><a rel="me" href="https://www.linkedin.com/in/engineerdanny" target="_blank" title="engineerdanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li>
+<li><a rel="me" href="https://twitter.com/EngineerDevDan" target="_blank" title="EngineerDevDan"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
