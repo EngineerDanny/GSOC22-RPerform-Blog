@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Fixes to some of the compilation errors of Rperform | GSOC22-RPerform-Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Fixes to some of the compilation errors of Rperform" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fixes to some of the compilation errors of Rperform" />
+<meta property="og:description" content="Fixes to some of the compilation errors of Rperform" />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/13/Rperform-Compilation-Errors.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/13/Rperform-Compilation-Errors.html" />
+<meta property="og:site_name" content="GSOC22-RPerform-Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-13T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Fixes to some of the compilation errors of Rperform" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-13T00:00:00-05:00","datePublished":"2022-06-13T00:00:00-05:00","description":"Fixes to some of the compilation errors of Rperform","headline":"Fixes to some of the compilation errors of Rperform","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/13/Rperform-Compilation-Errors.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/13/Rperform-Compilation-Errors.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/GSOC22-RPerform-Blog/">GSOC22-RPerform-Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/GSOC22-RPerform-Blog/search/">Search</a><a class="page-link" href="/GSOC22-RPerform-Blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Fixes to some of the compilation errors of Rperform</h1><p class="page-description">Fixes to some of the compilation errors of Rperform</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-13T00:00:00-05:00" itemprop="datePublished">
+        Jun 13, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#rperform">rperform</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#test">test</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#r">r</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#abstract">ABSTRACT</a></li>
+<li class="toc-entry toc-h2"><a href="#directory-issues">DIRECTORY ISSUES</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#--working-directory-error">- Working directory error</a></li>
+<li class="toc-entry toc-h3"><a href="#--test-join-directory-error">- test-join directory error</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#missing-packages">MISSING PACKAGES</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">CONCLUSION</a></li>
+</ul><h2 id="abstract">
+<a class="anchor" href="#abstract" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABSTRACT</h2>
+<p>The main goal of the RPerform library is to make performance tests on R packages easier with GitHub.
+However, currently, the initial version of the RPerform library is outdated in the sense that you would 
+need to improvise before you attempt to test RPerform.
+This article explains all the potential errors, issues and bugs you might encounter and how to solve them before you run the package.</p>
+
+<p>The test package that is used to test the <code class="language-plaintext highlighter-rouge">Rperform</code> library is the <code class="language-plaintext highlighter-rouge">stringr</code> (https://github.com/tdhock/stringr) package.
+Installation of the library has been discussed in the previous articles.
+Use the <code class="language-plaintext highlighter-rouge">library(Rperform)</code> command to load the library.
+The following command initializes the library by setting the working directory.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="n">dir</span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/newuser/Projects/RProjects/stringr"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="directory-issues">
+<a class="anchor" href="#directory-issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>DIRECTORY ISSUES</h2>
+<h3 id="--working-directory-error">
+<a class="anchor" href="#--working-directory-error" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>- Working directory error</strong>
+</h3>
+<p>The first error which might be thrown is :</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">setwd</span><span class="p">(</span><span class="n">dir</span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/newuser/Projects/RProjects/stringe"</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w">
+ </span><span class="n">cannot</span><span class="w"> </span><span class="n">change</span><span class="w"> </span><span class="n">working</span><span class="w"> </span><span class="n">directory</span><span class="w">
+</span></code></pre></div></div>
+<p>The <code class="language-plaintext highlighter-rouge">dir</code> argument must be set to the directory of the package or project you want to test.</p>
+
+<h3 id="--test-join-directory-error">
+<a class="anchor" href="#--test-join-directory-error" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>- <code class="language-plaintext highlighter-rouge">test-join</code> directory error</strong>
+</h3>
+<p>There has been an update with the <code class="language-plaintext highlighter-rouge">stringr</code> repository. <code class="language-plaintext highlighter-rouge">test-join.r</code> is not in the <code class="language-plaintext highlighter-rouge">tests/testthat</code> directory. The new directory is  <code class="language-plaintext highlighter-rouge">inst/tests/test-join.r</code> . Also, all the files in <code class="language-plaintext highlighter-rouge">inst/tests/</code> directory must be taken note. Misrepresenting them will result in errors. Hence, this implies that running :</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_metrics</span><span class="p">(</span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tests/testthat/test-join.r"</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>will throw the error :</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Error</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s2">"r"</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w">
+    </span><span class="n">cannot</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="s2">"tests/testthat/test-join.r"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">directory</span><span class="w">    
+</span></code></pre></div></div>
+
+<p>Instead, run :</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_metrics</span><span class="p">(</span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"inst/tests/test-join.r"</span><span class="p">,</span><span class="w"> </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+
+</span></code></pre></div></div>
+
+<h2 id="missing-packages">
+<a class="anchor" href="#missing-packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>MISSING PACKAGES</h2>
+<p>These are the packages that <code class="language-plaintext highlighter-rouge">Rperform</code> depends on. Not having it pre-installed may prevent you from running the package. We proceed by discussing the relevant dependencies and how to install them.</p>
+
+<p><code class="language-plaintext highlighter-rouge">git2r</code> : The git2r package gives developers access to Git repositories from R. The package uses the <code class="language-plaintext highlighter-rouge">libgit2</code> library which is a C implementation of the Git core methods. Therefore it allows developers to write native speed custom Git applications in any language that supports C bindings.</p>
+
+<p>To install the development version of git2r. You can use :</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s2">"git2r"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+<p>it’s easiest to use the devtools package:</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># install.packages("devtools")</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">devtools</span><span class="p">)</span><span class="w">
+</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"ropensci/git2r"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">ggplot2</code> : The <code class="language-plaintext highlighter-rouge">ggplot2</code> is an R package used for plotting graphs. It provides useful commands that helps to create complex plots from data in a data frame. It enables quality plots to be created with minimal coding, tweaking and adjustments. The package is therefore necessary for <code class="language-plaintext highlighter-rouge">Rperform</code> to visualize performance metrics. It provides an interface for determining what variables to plot and how they are shown to the user. Organized data saves massive time when using the package to make figures.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The easiest way to get ggplot2 is to install the whole tidyverse:</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"tidyverse"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Alternatively, install just ggplot2:</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Or the development version from GitHub:</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"devtools"</span><span class="p">)</span><span class="w">
+</span><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"tidyverse/ggplot2"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="conclusion">
+<a class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>CONCLUSION</h2>
+<p>It is very crucial to adequately set up the package for testing.
+Some of the errors have been discussed and solutions have also been proposed.
+It is advisable to always follow the documentation for latest the updates.</p>
+
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/06/13/Rperform-Compilation-Errors.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/GSOC22-RPerform-Blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/GSOC22-RPerform-Blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blogging platform to track my progress in GSOC 2022 | RPerform.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/EngineerDanny" target="_blank" title="EngineerDanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/engineerdanny" target="_blank" title="engineerdanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/EngineerDevDan" target="_blank" title="EngineerDevDan"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
