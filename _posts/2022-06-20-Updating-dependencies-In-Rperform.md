@@ -4,7 +4,7 @@ layout: post
 description: This is the total review of how I went about in fixing the issues with dependencies in Rperform package.
 badges: true
 categories: [Rperform,performance, test, r, git, github]
-title: Updating the dependencies used in Rperform and fix related issues.
+title: Updating the dependencies in Rperform.
 ---
 
 
