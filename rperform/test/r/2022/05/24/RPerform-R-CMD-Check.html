@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>What I did to ensure that R CMD Check on Rperform runs successfully | GSOC22-RPerform-Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="What I did to ensure that R CMD Check on Rperform runs successfully" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Running R CMD Check on Rperform" />
+<meta property="og:description" content="Running R CMD Check on Rperform" />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform-R-CMD-Check.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform-R-CMD-Check.html" />
+<meta property="og:site_name" content="GSOC22-RPerform-Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-05-24T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="What I did to ensure that R CMD Check on Rperform runs successfully" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-05-24T00:00:00-05:00","datePublished":"2022-05-24T00:00:00-05:00","description":"Running R CMD Check on Rperform","headline":"What I did to ensure that R CMD Check on Rperform runs successfully","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform-R-CMD-Check.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform-R-CMD-Check.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/GSOC22-RPerform-Blog/">GSOC22-RPerform-Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/GSOC22-RPerform-Blog/search/">Search</a><a class="page-link" href="/GSOC22-RPerform-Blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">What I did to ensure that R CMD Check on Rperform runs successfully</h1><p class="page-description">Running R CMD Check on Rperform</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-24T00:00:00-05:00" itemprop="datePublished">
+        May 24, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#rperform">rperform</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#test">test</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#r">r</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#introduction">INTRODUCTION</a></li>
+<li class="toc-entry toc-h2"><a href="#running-r-cmd-check-locally">RUNNING R CMD CHECK LOCALLY</a></li>
+<li class="toc-entry toc-h2"><a href="#r-cmd-check-using-github-actions">R CMD CHECK USING GITHUB ACTIONS</a></li>
+<li class="toc-entry toc-h2"><a href="#final-fix">FINAL FIX</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">CONCLUSION</a></li>
+</ul><h2 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>INTRODUCTION</h2>
+
+<p>When it comes to publishing an R package, it is very prerequisite and crucial for the package to pass <code class="language-plaintext highlighter-rouge">R CMD Check</code>. <code class="language-plaintext highlighter-rouge">R CMD Check</code> is basically a test performed on an R package to check code for common problems whilst suggesting ways of fixing them. This means that it is also great tool to even utilize during the whole development process of a package. <code class="language-plaintext highlighter-rouge">R CMD Checks</code> comprises of about 50 different tests which are explained <a href="https://r-pkgs.org/r-cmd-check.html#check-checks">here</a></p>
+
+<h2 id="running-r-cmd-check-locally">
+<a class="anchor" href="#running-r-cmd-check-locally" aria-hidden="true"><span class="octicon octicon-link"></span></a>RUNNING <code class="language-plaintext highlighter-rouge">R CMD CHECK</code> LOCALLY</h2>
+
+<p>Running<code class="language-plaintext highlighter-rouge"> R CMD Check</code> on <code class="language-plaintext highlighter-rouge">Rperform</code> is a simple task. During development, it can be run locally by using the famous devtools package.</p>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">devtools</span><span class="o">::</span><span class="n">check</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Also, the R Studio IDE has in-built features which makes it easy to run R CMD Checks right inside the IDE. Under Build section, there is a check button which does that. Using various methods above is synonymous to running the following command on the R console:</p>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">R</span><span class="w"> </span><span class="n">CMD</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">Rperform</span><span class="w">
+</span></code></pre></div></div>
+
+<p>However, when developers need to share or collaborate on a project, the check comes in handy if it can be run online in a container for everyone to see the results. It is more challenging to set-up the checks to run online. Mostly, this approach is used when the need arises to run <code class="language-plaintext highlighter-rouge">R CMD check</code> every time changes are made in code. Since we use GitHub, it is recommended that we do that with <a href="https://github.com/features/actions">Github Actions</a>. There are others such as <a href="https://www.travis-ci.com">Travis CI</a> and <a href="https://www.appveyor.com/">Appveyor</a> but we will stick with Github Actions due to its simplicity and power. In addition to that, it implements modern technologies with vast functionalities and growing community.</p>
+
+<p>It must be taken note that running <code class="language-plaintext highlighter-rouge">R CMD Check</code> on any package will return only three types of notices:</p>
+
+<blockquote>
+  <p><strong>ERRORS</strong> : These are issues which are very fatal and likely to cause the package or its dependencies to fail to install.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>WARNINGS</strong> : Warnings are statements that are made to caution the developer to take note of certain vital issues. These issues are unlikely to be detrimental to the package but it is very crucial to not ignore them.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTES</strong> : Notes are not crucial issues. They are just mild problems which are meant for developers to take note of.</p>
+</blockquote>
+
+<p><em>R CMD Check passes successfully when none of the above notices are returned</em></p>
+
+<h2 id="r-cmd-check-using-github-actions">
+<a class="anchor" href="#r-cmd-check-using-github-actions" aria-hidden="true"><span class="octicon octicon-link"></span></a><code class="language-plaintext highlighter-rouge">R CMD CHECK</code> USING GITHUB ACTIONS</h2>
+<p><a href="https://github.com/features/actions"><code class="language-plaintext highlighter-rouge">GitHub Actions</code></a> is an open-source technology that makes it easy for automation of software workflows. It has exceptional Continuous Integration/ Continuous Deployment (CI/CD) tools which enables developers to build, test and deploy code right from their GitHub repositories.</p>
+
+<p>It is very exciting that the R community has a number of repositories of Github Actions which can be used to perform any variety of CI tasks for R projects with example workflows. In Rperform, we use the following actions sequencially :</p>
+
+<ol>
+  <li>
+<a href="https://github.com/actions/checkout">actions/checkout</a> - Checks out your repository to the <code class="language-plaintext highlighter-rouge">$GITHUB_WORKSPACE</code> so that repository’s workflow can utilize it.</li>
+  <li>
+<a href="https://github.com/r-lib/actions/tree/v2/setup-r">r-lib/actions/setup-r</a> - Sets up an <a href="https://r-project.org">R</a> environment for use in GitHub Actions by basically downloading and caching a version of R.</li>
+  <li>
+<a href="https://github.com/r-lib/actions/tree/v2/setup-r-dependencies">r-lib/actions/setup-r-dependencies</a> - Downloads and installs all the packages declared in the <code class="language-plaintext highlighter-rouge">DESCRIPTION</code> file.</li>
+  <li>
+<a href="https://github.com/r-lib/actions/tree/v2/check-r-package">r-lib/actions/check-r-package</a> - Runs <code class="language-plaintext highlighter-rouge">R CMD check</code> on an R package.</li>
+</ol>
+
+<p>If every check passes without any discrepancies, it implies that the package is stable. However, if any of the check fails, detailed logs will be shown at the end of every action for you to rectify this issue. It can be very confusing at first when some of the checks fail but with a little bit of debugging and testing, you can get the package to pass.
+When you check my workflow history on my Rperform repository <a href="https://github.com/EngineerDanny/Rperform/actions">here</a>, you would notice that I have about 50% failed workflow runs. I wrote an <a href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/performance/test/r/git/github/2022/06/20/Updating-dependencies-In-Rperform.html">article</a> describing a total review of how I went about fixing the issues with Rperform’s initial dependencies. At that time, I had successive workflow failures (From<code class="language-plaintext highlighter-rouge"> R-CMD-check #17</code> to<code class="language-plaintext highlighter-rouge"> R-CMD-check #21</code> ). After fixing the various issues that popped up, I submitted a <a href="https://github.com/EngineerDanny/Rperform/pull/1">Pull Request</a> explaining the series of failures and the steps I took to fix them.</p>
+
+<p>I will be diving deep into the <a href="https://github.com/EngineerDanny/Rperform/pull/1">PR</a> to explain some of the issues encountered.</p>
+
+<p><img alt="Screenshot 2022-06-22 at 11 44 48 AM" src="https://user-images.githubusercontent.com/47421661/175021313-4fcd05ff-fc67-45d1-8935-8e1ccf99feec.png"></p>
+
+<p>From the <a href="https://github.com/EngineerDanny/Rperform/actions/runs/2536152401">Check-RPerform #3</a>, Github showed a visual evidence that points to <code class="language-plaintext highlighter-rouge">r-lib/actions/check-r-package</code> as the specific action that failed.</p>
+
+<p>Initially, the issue was invalid link in the <code class="language-plaintext highlighter-rouge">test-repo-metrics.R </code>file.
+I found out that the <a href="https://github.com/hadley/stringr">hadley/stringr</a> link does not exist.
+Even though, when you open the link you will be redirected to the actual repository which is the <a href="https://github.com/tidyverse/stringr">tidyverse/stringr</a>.</p>
+
+<p>My test results were inconsistent (Failing more times and occassionally passing) due to this issue.
+Therefore, I changed the github link to <a href="https://github.com/tidyverse/stringr">tidyverse/stringr</a>
+After running Rperform check locally, even though the test didn’t explicitly give me an error, it failed. The only warning was :</p>
+
+<blockquote>
+  <p>checking Rd cross-references … WARNING
+  Missing link or links in documentation object ‘Rperform-package.Rd’:
+    ‘[git2r:git2r-package]{git2r}’</p>
+
+  <p>See section ‘Cross-references’ in the ‘Writing R Extensions’ manual.</p>
+</blockquote>
+
+<p>I fixed the warning by inserting the <a href="https://github.com/ropensci/git2r">git2r</a> official github link.</p>
+
+<p>Although the issue with the link was fixed and <strong>R CMD Check</strong> on my local machine passed, the GitHub CI action still failed.
+So I started to dig into the <a href="https://github.com/tidyverse/stringr">tidyverse/stringr</a> package tests.</p>
+
+<p>Inside the https://github.com/tidyverse/stringr/blob/main/tests/testthat/test-dup.r file, there are three tests which are ran internally.</p>
+
+<p><img width="642" alt="Screenshot 2022-06-22 at 2 30 21 PM" src="https://user-images.githubusercontent.com/47421661/175054951-9392a05a-0ef8-4443-84f4-f06fa950b562.png"></p>
+
+<p>As shown above, all the other tests passed except the <code class="language-plaintext highlighter-rouge">uses tidyverse recycling rules</code> test.
+This led to my conclusion that, this may be an internal issue with the <code class="language-plaintext highlighter-rouge">tidyverse/stringr</code> package.</p>
+
+<p>The first two tests however, could be used in checking Rperform.</p>
+
+<h2 id="final-fix">
+<a class="anchor" href="#final-fix" aria-hidden="true"><span class="octicon octicon-link"></span></a>FINAL FIX</h2>
+<p>After several debugging and testing, I finally found the final error that was causing the <strong>Rperform R CMD Check</strong> test to fail on GitHub CI. It turns out that during my adventures and explorations, I mistakenly created a file( [tests/testthat/test-plot-metrics.R]) on the <code class="language-plaintext highlighter-rouge">master</code> branch.</p>
+
+<p><img width="696" alt="Screenshot 2022-06-22 at 8 14 21 PM" src="https://user-images.githubusercontent.com/47421661/175130169-1d1dd3f7-2f9e-43ec-b7cc-b88de65599ec.png"></p>
+
+<p>As recorded from the logs above, in the file, there is an issue with the <code class="language-plaintext highlighter-rouge">str_c</code>  function because it does not exist. Therefore, I removed this file since it’s not needed. It was created for experimental purposes.</p>
+
+<p>After fixing all the issues, all the checks passed ✅ with<a href="https://github.com/EngineerDanny/Rperform/actions/runs/2544889102"><code class="language-plaintext highlighter-rouge">Check-RPerform #11</code></a> workflow run.</p>
+
+<h2 id="conclusion">
+<a class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>CONCLUSION</h2>
+<p>During my tests, I realized the cause of the inconsistencies in my workflow results. When running <code class="language-plaintext highlighter-rouge">R CMD Check</code> locally, I noticed that if your internet network is slow, because the dependencies and other stuffs can not be downloaded, the test will pass with no warnings or errors. This may be a flaw in the <code class="language-plaintext highlighter-rouge">R CMD Check</code> tool. It can lead to false positives. The main reason why I didn’t notice the mistakenly created file locally was because I was on another branch (<code class="language-plaintext highlighter-rouge">test-pkg</code>) instead of the main branch (<code class="language-plaintext highlighter-rouge">master</code>). The file was rather created on the <code class="language-plaintext highlighter-rouge">master</code> branch.</p>
+
+<p><code class="language-plaintext highlighter-rouge">R CMD Checks</code> are very crucial to the success of a package especially when the package is to be published on <a href="https://cran.r-project.org">CRAN</a>. When a package passes the checks with no errors, warnings and notes, there would be no need for human intervention before the package is published on <a href="https://cran.r-project.org">CRAN</a>.</p>
+
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/05/24/RPerform-R-CMD-Check.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/GSOC22-RPerform-Blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/GSOC22-RPerform-Blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blogging platform to track my progress in GSOC 2022 | RPerform.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/EngineerDanny" target="_blank" title="EngineerDanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/engineerdanny" target="_blank" title="engineerdanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/EngineerDevDan" target="_blank" title="EngineerDevDan"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
