@@ -4,21 +4,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>What I did to ensure that R CMD Check on Rperform runs successfully | GSOC22-RPerform-Blog</title>
+<title>R CMD Check on Rperform | GSOC22-RPerform-Blog</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="What I did to ensure that R CMD Check on Rperform runs successfully" />
+<meta property="og:title" content="R CMD Check on Rperform" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Running R CMD Check on Rperform" />
-<meta property="og:description" content="Running R CMD Check on Rperform" />
-<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/24/RPerform-R-CMD-Check.html" />
-<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/24/RPerform-R-CMD-Check.html" />
+<meta name="description" content="Testing and Debugging Rperform to ensure that R CMD Check runs successfully" />
+<meta property="og:description" content="Testing and Debugging Rperform to ensure that R CMD Check runs successfully" />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/29/RPerform-R-CMD-Check.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/29/RPerform-R-CMD-Check.html" />
 <meta property="og:site_name" content="GSOC22-RPerform-Blog" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-06-24T00:00:00-05:00" />
+<meta property="article:published_time" content="2022-06-29T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="What I did to ensure that R CMD Check on Rperform runs successfully" />
+<meta property="twitter:title" content="R CMD Check on Rperform" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-24T00:00:00-05:00","datePublished":"2022-06-24T00:00:00-05:00","description":"Running R CMD Check on Rperform","headline":"What I did to ensure that R CMD Check on Rperform runs successfully","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/24/RPerform-R-CMD-Check.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/24/RPerform-R-CMD-Check.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-29T00:00:00-05:00","datePublished":"2022-06-29T00:00:00-05:00","description":"Testing and Debugging Rperform to ensure that R CMD Check runs successfully","headline":"R CMD Check on Rperform","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/29/RPerform-R-CMD-Check.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/29/RPerform-R-CMD-Check.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -73,8 +73,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">What I did to ensure that R CMD Check on Rperform runs successfully</h1><p class="page-description">Running R CMD Check on Rperform</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-24T00:00:00-05:00" itemprop="datePublished">
-        Jun 24, 2022
+    <h1 class="post-title p-name" itemprop="name headline">R CMD Check on Rperform</h1><p class="page-description">Testing and Debugging Rperform to ensure that R CMD Check runs successfully</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-29T00:00:00-05:00" itemprop="datePublished">
+        Jun 29, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -215,7 +215,7 @@ This led to my conclusion that, this may be an internal issue with the <code cla
 
 <p><code class="language-plaintext highlighter-rouge">R CMD Checks</code> are very crucial to the success of a package especially when the package is to be published on <a href="https://cran.r-project.org">CRAN</a>. When a package passes the checks with no errors, warnings and notes, there would be no need for human intervention before the package is published on <a href="https://cran.r-project.org">CRAN</a>.</p>
 
-  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/06/24/RPerform-R-CMD-Check.html" hidden></a>
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/06/29/RPerform-R-CMD-Check.html" hidden></a>
 </article>
 
       </div>
