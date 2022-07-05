@@ -10,15 +10,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="My step-by-step approach to develop the prototype of custom Github Actions in Rperform." />
 <meta property="og:description" content="My step-by-step approach to develop the prototype of custom Github Actions in Rperform." />
-<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
-<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/07/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/07/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
 <meta property="og:site_name" content="GSOC22-RPerform-Blog" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-06-05T00:00:00-05:00" />
+<meta property="article:published_time" content="2022-07-05T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Implementing Custom Github Action Prototype in Rperform" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-05T00:00:00-05:00","datePublished":"2022-06-05T00:00:00-05:00","description":"My step-by-step approach to develop the prototype of custom Github Actions in Rperform.","headline":"Implementing Custom Github Action Prototype in Rperform","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-07-05T00:00:00-05:00","datePublished":"2022-07-05T00:00:00-05:00","description":"My step-by-step approach to develop the prototype of custom Github Actions in Rperform.","headline":"Implementing Custom Github Action Prototype in Rperform","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/07/05/Implementing-Custom-Github-Actions-in-Rperform.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/07/05/Implementing-Custom-Github-Actions-in-Rperform.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -73,8 +73,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Implementing Custom Github Action Prototype in Rperform</h1><p class="page-description">My step-by-step approach to develop the prototype of custom Github Actions in Rperform.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-05T00:00:00-05:00" itemprop="datePublished">
-        Jun 5, 2022
+    <h1 class="post-title p-name" itemprop="name headline">Implementing Custom Github Action Prototype in Rperform</h1><p class="page-description">My step-by-step approach to develop the prototype of custom Github Actions in Rperform.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-07-05T00:00:00-05:00" itemprop="datePublished">
+        Jul 5, 2022
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -329,7 +329,7 @@ e.g. <code class="language-plaintext highlighter-rouge">Rperform v0.0.1</code>:<
 <a class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>CONCLUSION</h2>
 <p>This is the prototype of the Github Actions. Initially due to separation of actions, I had an issue with the Github create comment script which was similar to <a href="https://github.com/actions/github-script/issues/77">this issue</a>. After several debugging and testing, I was able to successfully automate the creation of comments. <a href="https://github.com/EngineerDanny/stringr/pull/2#issuecomment-1172716652">(Auto Comment On PR)</a>. The actions are implemented in such a way that testing results are firstly uploaded as an artifact on Github. Then afterwards, a comment is created by Github actions bot on the PR. At this point, I only tested it with the <code class="language-plaintext highlighter-rouge">plot_metrics</code> function. More functionalities will be added to the actions in time. I am thinking about limiting the number of functions that can be run in the <code class="language-plaintext highlighter-rouge">script.R</code> file.</p>
 
-  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" hidden></a>
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/07/05/Implementing-Custom-Github-Actions-in-Rperform.html" hidden></a>
 </article>
 
       </div>
