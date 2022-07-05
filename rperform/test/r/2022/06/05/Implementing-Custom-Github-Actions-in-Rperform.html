@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Implementing Custom Github Action Prototype in Rperform | GSOC22-RPerform-Blog</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Implementing Custom Github Action Prototype in Rperform" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="My step-by-step approach to develop the prototype of custom Github Actions in Rperform." />
+<meta property="og:description" content="My step-by-step approach to develop the prototype of custom Github Actions in Rperform." />
+<link rel="canonical" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
+<meta property="og:url" content="https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" />
+<meta property="og:site_name" content="GSOC22-RPerform-Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-05T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Implementing Custom Github Action Prototype in Rperform" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-05T00:00:00-05:00","datePublished":"2022-06-05T00:00:00-05:00","description":"My step-by-step approach to develop the prototype of custom Github Actions in Rperform.","headline":"Implementing Custom Github Action Prototype in Rperform","mainEntityOfPage":{"@type":"WebPage","@id":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html"},"url":"https://engineerdanny.github.io/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/GSOC22-RPerform-Blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://engineerdanny.github.io/GSOC22-RPerform-Blog/feed.xml" title="GSOC22-RPerform-Blog" /><link rel="shortcut icon" type="image/x-icon" href="/GSOC22-RPerform-Blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/GSOC22-RPerform-Blog/">GSOC22-RPerform-Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/GSOC22-RPerform-Blog/search/">Search</a><a class="page-link" href="/GSOC22-RPerform-Blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Implementing Custom Github Action Prototype in Rperform</h1><p class="page-description">My step-by-step approach to develop the prototype of custom Github Actions in Rperform.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-05T00:00:00-05:00" itemprop="datePublished">
+        Jun 5, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#rperform">rperform</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#test">test</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/GSOC22-RPerform-Blog/categories/#r">r</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#abstract">ABSTRACT</a></li>
+<li class="toc-entry toc-h2"><a href="#development-considerations">DEVELOPMENT CONSIDERATIONS</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-repository">The repository</a></li>
+<li class="toc-entry toc-h3"><a href="#the-type-of-action">The Type of Action</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#implementing-custom-github-actions-prototype">IMPLEMENTING CUSTOM GITHUB ACTIONS PROTOTYPE</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#the-receive-action">The Receive Action</a></li>
+<li class="toc-entry toc-h3"><a href="#the-comment-action">The Comment Action</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#conclusion">CONCLUSION</a></li>
+</ul><h2 id="abstract">
+<a class="anchor" href="#abstract" aria-hidden="true"><span class="octicon octicon-link"></span></a>ABSTRACT</h2>
+<p>In my previous <a href="">article</a>, I established the reason why Github Actions was the preferred choice over other tools like <a href="https://www.travis-ci.com">Travis CI</a> and <a href="https://www.appveyor.com/">Appveyor</a>. The main goal of this project as described <a href="https://github.com/rstats-gsoc/gsoc2022/wiki/RPerform">here</a> is to get Rperform working and easy to use with <code class="language-plaintext highlighter-rouge">Github Actions</code>. GitHub Actions enable DevOps to be done on Github and allows workflows to be run when other events are triggered in the repository. GitHub provides macOS, Linux and Windows virtual machines to run workflows. A workflow is a configurable process defined by YAML file which contains one or more jobs that may be run sequencially or parallel. Each job runs inside it’s own container or runner. Under each job, there are steps that runs a script or an action.</p>
+
+<h2 id="development-considerations">
+<a class="anchor" href="#development-considerations" aria-hidden="true"><span class="octicon octicon-link"></span></a>DEVELOPMENT CONSIDERATIONS</h2>
+<h3 id="the-repository">
+<a class="anchor" href="#the-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>The repository</h3>
+<p>To develop a custom Github Actions, I had to consider whether to keep it in the main repository or create a new repository just for the Github Actions. I decided to keep it in the main repository because it is easier to maintain along with the main package as well. The main reason why I chose to do that was because this particular Github Action is specific to only this package and it is not generalized enough to be used with other packages.</p>
+
+<p>The only issue that I thought of was version control of the action. However, it can be fixed by specifying the version number of the action which must be the same as the version number of the Rperform package.
+e.g. <code class="language-plaintext highlighter-rouge">Rperform v0.0.1</code>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="s">uses EngineerDanny/Rperform/actions/receive@v0.0.1</span>
+</code></pre></div></div>
+
+<h3 id="the-type-of-action">
+<a class="anchor" href="#the-type-of-action" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Type of Action</h3>
+<p>According to the <a href="https://docs.github.com/en/actions/creating-actions/about-custom-actions#types-of-actions">documentation</a>, there are only three types of actions namely :</p>
+<ul>
+  <li>Docker Container which supports only Linux OS</li>
+  <li>Javascript which supports Linux, MacOS and Windows</li>
+  <li>
+<strong>Composite Actions</strong> which also support Linux, MacOS and Windows.</li>
+</ul>
+
+<p>Even though all the other types of actions are very important, I chose to use composite actions. It allows the combination of multiple workflow steps within one action. This feature makes it possible to combine multiple run commands into an action. If a workflow is set-up, it can execute the commands as a single step with that action. This flexibility is the main reason why I adopted this approach.</p>
+
+<h2 id="implementing-custom-github-actions-prototype">
+<a class="anchor" href="#implementing-custom-github-actions-prototype" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMPLEMENTING CUSTOM GITHUB ACTIONS PROTOTYPE</h2>
+
+<p>I submitted a <a href="https://github.com/EngineerDanny/Rperform/pull/7">PR</a> which intends to create Github Actions to make it easier for package developers to use Rperform to test their code. The Actions are tested on a separate repository <a href="https://github.com/EngineerDanny/stringr/pull/2">stringr</a>.</p>
+
+<p>To make set-up easier, the Github workflow directory, which is the <code class="language-plaintext highlighter-rouge">.github/workflow/</code> directory, is created automatically when you ran 
+<code class="language-plaintext highlighter-rouge">Rperform::init_rperform()</code> function. It is also populated with the needed workflow files to be able to run <code class="language-plaintext highlighter-rouge">Rperform</code> with ease. It adds the <code class="language-plaintext highlighter-rouge">rperform</code> directory and populates it with files which make test configuration and customisation easier. One of the most important files in that directory is the <code class="language-plaintext highlighter-rouge">script.R</code> file which is where the Rperform test functions should be written.
+<img width="485" alt="Screenshot 2022-07-01 at 3 33 40 PM" src="https://user-images.githubusercontent.com/47421661/176925448-eb5237f5-33ad-40e6-94a9-4c8dbaa81744.png"></p>
+
+<p>When writing the Github Action for Rperform, I divided the action into two parts. These are the <strong><code class="language-plaintext highlighter-rouge">receive</code></strong> and <strong><code class="language-plaintext highlighter-rouge">comment</code></strong> parts. This decision was taken due to security reasons.</p>
+
+<h3 id="the-receive-action">
+<a class="anchor" href="#the-receive-action" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/EngineerDanny/Rperform/tree/main/actions/receive">The Receive Action</a>
+</h3>
+
+<ul>
+  <li>This action is represented by <a href="https://github.com/EngineerDanny/Rperform/tree/main/actions/receive">EngineerDanny/Rperform/actions/receive</a>
+    <ul>
+      <li>Triggered via PR or push to main branch.</li>
+      <li>Reads <code class="language-plaintext highlighter-rouge">config.json</code> to prepare and run the benchmark job.</li>
+      <li>Does not have read or write access due to <a href="https://securitylab.github.com/research/github-actions-preventing-pwn-requests/">security reasons</a>.</li>
+    </ul>
+  </li>
+  <li>Below is the script inside receive.yaml file</li>
+</ul>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">receive"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Action</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">Rperform</span><span class="nv"> </span><span class="s">benchmarks</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">upload</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">results."</span>
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">cache-version</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Integer</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">cache</span><span class="nv"> </span><span class="s">version.</span><span class="nv"> </span><span class="s">Increment</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">cache."</span>
+    <span class="na">required</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">default</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">rperform_ref</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Which</span><span class="nv"> </span><span class="s">branch</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">tag</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">Rperform</span><span class="nv"> </span><span class="s">should</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">used.</span><span class="nv"> </span><span class="s">Mainly</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">debugging."</span>
+    <span class="na">required</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">default</span><span class="pi">:</span> <span class="s2">"</span><span class="s">@github-actions"</span>
+
+<span class="na">runs</span><span class="pi">:</span>
+  <span class="na">using</span><span class="pi">:</span> <span class="s2">"</span><span class="s">composite"</span>
+  <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Checkout repo</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">0</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set up git user</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">git config --local user.name "GitHub Actions"</span>
+        <span class="s">git config --local user.email "actions@github.com"</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">bash</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Setup R</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">r-lib/actions/setup-r@v2</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install dependencies</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">r-lib/actions/setup-r-dependencies@v2</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">cache-version</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">extra-packages</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">any::ggplot2</span>
+          <span class="s">any::dplyr</span>
+          <span class="s">any::gert</span>
+          <span class="s">any::glue</span>
+          <span class="s">github::EngineerDanny/Rperform$</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Remove global installation</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">pkg &lt;- unlist(read.dcf('DESCRIPTION')[, 'Package'])</span>
+        <span class="s">if (pkg %in% rownames(installed.packages())) {</span>
+          <span class="s">remove.packages(pkg)</span>
+          <span class="s">cat('removed package ', pkg, '.', sep = "")</span>
+        <span class="s">}</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">Rscript {0}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Run benchmarks</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">Rperform::run_script("rperform/script.R")</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">Rscript {0}</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Uploading Results</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">echo "Uploading results..."</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">bash</span>
+
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Saves the PR number in an artifact</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">bash</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">PULL_REQUEST_NUMBER</span><span class="pi">:</span> <span class="s">$</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="s">echo $PULL_REQUEST_NUMBER &gt; ./rperform/pr-comment/PR_NO</span>
+
+    <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/upload-artifact@v2</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">pr</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">rperform/pr-comment/</span>
+</code></pre></div></div>
+
+<h3 id="the-comment-action">
+<a class="anchor" href="#the-comment-action" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://github.com/EngineerDanny/Rperform/tree/main/actions/comment">The Comment Action</a>
+</h3>
+
+<ul>
+  <li>This action is represented by <a href="https://github.com/EngineerDanny/Rperform/tree/main/actions/comment">EngineerDanny/Rperform/actions/comment</a>
+    <ul>
+      <li>Comments the results on the PR that originated the workflow run.</li>
+      <li>Starts right after the <code class="language-plaintext highlighter-rouge">receive</code> job finishes.</li>
+      <li>Will create an additional commit status to the PR check suite.</li>
+      <li>Has read &amp; write access.</li>
+    </ul>
+  </li>
+  <li>Below is the script inside comment.yaml file</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">comment"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Action</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">comment</span><span class="nv"> </span><span class="s">Rperform</span><span class="nv"> </span><span class="s">results</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">appropriate</span><span class="nv"> </span><span class="s">PR.</span><span class="nv"> </span><span class="s">Needs</span><span class="nv"> </span><span class="s">read/write</span><span class="nv"> </span><span class="s">access."</span>
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">GITHUB_TOKEN</span><span class="pi">:</span>
+    <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">The</span><span class="nv"> </span><span class="s">GITHUB_TOKEN</span><span class="nv"> </span><span class="s">secret."</span>
+    <span class="na">required</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">runs</span><span class="pi">:</span>
+  <span class="na">using</span><span class="pi">:</span> <span class="s2">"</span><span class="s">composite"</span>
+  <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifact"</span>
+      <span class="na">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">download"</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/github-script@v3.1.0</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">var artifacts = await github.actions.listWorkflowRunArtifacts({</span>
+             <span class="s">owner: context.repo.owner,</span>
+             <span class="s">repo: context.repo.repo,</span>
+             <span class="s">run_id: $,</span>
+          <span class="s">});</span>
+          <span class="s">var matchArtifact = artifacts.data.artifacts.filter((artifact) =&gt; {</span>
+            <span class="s">return artifact.name == "pr"</span>
+          <span class="s">})[0];</span>
+          <span class="s">var download = await github.actions.downloadArtifact({</span>
+             <span class="s">owner: context.repo.owner,</span>
+             <span class="s">repo: context.repo.repo,</span>
+             <span class="s">artifact_id: matchArtifact.id,</span>
+             <span class="s">archive_format: 'zip',</span>
+          <span class="s">});</span>
+          <span class="s">var fs = require('fs');</span>
+          <span class="s">fs.writeFileSync('$/pr.zip', Buffer.from(download.data));</span>
+    <span class="pi">-</span> <span class="na">run</span><span class="pi">:</span> <span class="s">unzip pr.zip</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">bash</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Comment</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">PR"</span>
+      <span class="na">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">comment"</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/github-script@v6</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">var fs = require('fs');</span>
+          <span class="s">var pr_number = Number(fs.readFileSync('./PR_NO'));</span>
+          <span class="s">var body = fs.readFileSync('./results.txt').toString();</span>
+          <span class="s">await github.rest.issues.createComment({</span>
+            <span class="s">owner: context.repo.owner,</span>
+            <span class="s">repo: context.repo.repo,</span>
+            <span class="s">issue_number: pr_number,</span>
+            <span class="s">body: body</span>
+          <span class="s">});</span>
+          
+    <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/github-script@v5</span>
+      <span class="na">if</span><span class="pi">:</span> <span class="s">always()</span>
+      <span class="na">with</span><span class="pi">:</span>
+        <span class="na">script</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">let url = '$'</span>
+          <span class="s">let any_failed = $</span>
+          <span class="s">let state = 'success'</span>
+          <span class="s">let description = 'Commenting succeeded!'</span>
+
+          <span class="s">if($ || any_failed) {</span>
+            <span class="s">state = 'failure'</span>
+            <span class="s">description = 'Commenting failed!'</span>
+            <span class="s">if(any_failed) {</span>
+              <span class="s">url = "https://github.com/$/actions/runs/" + </span>
+                    <span class="s">"$"</span>
+            <span class="s">}</span>
+          <span class="s">}</span>
+          <span class="s">github.rest.repos.createCommitStatus({</span>
+            <span class="s">owner: context.repo.owner,</span>
+            <span class="s">repo: context.repo.repo,</span>
+            <span class="s">sha: '$',</span>
+            <span class="s">state: state,</span>
+            <span class="s">target_url: url,</span>
+            <span class="s">description: description,</span>
+            <span class="s">context: 'rperform comment'</span>
+          <span class="s">})</span>
+</code></pre></div></div>
+
+<h2 id="conclusion">
+<a class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>CONCLUSION</h2>
+<p>This is the prototype of the Github Actions. Initially due to separation of actions, I had an issue with the Github create comment script which was similar to <a href="https://github.com/actions/github-script/issues/77">this issue</a>. After several debugging and testing, I was able to successfully automate the creation of comments. <a href="https://github.com/EngineerDanny/stringr/pull/2#issuecomment-1172716652">(Auto Comment On PR)</a>. The actions are implemented in such a way that testing results are firstly uploaded as an artifact on Github. Then afterwards, a comment is created by Github actions bot on the PR. At this point, I only tested it with the <code class="language-plaintext highlighter-rouge">plot_metrics</code> function. More functionalities will be added to the actions in time. I am thinking about limiting the number of functions that can be run in the <code class="language-plaintext highlighter-rouge">script.R</code> file.</p>
+
+  </div><a class="u-url" href="/GSOC22-RPerform-Blog/rperform/test/r/2022/06/05/Implementing-Custom-Github-Actions-in-Rperform.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/GSOC22-RPerform-Blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/GSOC22-RPerform-Blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blogging platform to track my progress in GSOC 2022 | RPerform.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/EngineerDanny" target="_blank" title="EngineerDanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.linkedin.com/in/engineerdanny" target="_blank" title="engineerdanny"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#linkedin"></use></svg></a></li><li><a rel="me" href="https://twitter.com/EngineerDevDan" target="_blank" title="EngineerDevDan"><svg class="svg-icon grey"><use xlink:href="/GSOC22-RPerform-Blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
