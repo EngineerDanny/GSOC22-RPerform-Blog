@@ -1,10 +1,10 @@
 ---
 toc: true
 layout: post
-description: Running R CMD Check on Rperform
+description: What I did to ensure that R CMD Check on Rperform runs successfully
 badges: true
 categories: [rperform, test, r]
-title: What I did to ensure that R CMD Check on Rperform runs successfully
+title: R CMD Check on Rperform
 ---
 
 ## INTRODUCTION
