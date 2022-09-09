@@ -1,0 +1,108 @@
+<h3 id="introduction">Introduction</h3>
+
+<p>Rperform has great flexibility and usability. It internally supports automating the tests of your code on Github and creating comments to display the results. To set-up Rperform for your GitHub CI worflow, initialize Rperform with the command :</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Rperform</span><span class="o">:</span><span class="n">init_rperform</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+<ul>
+  <li>
+    <p>The above command creates the Github workflow directory, which is the <code class="language-plaintext highlighter-rouge">.github/workflow/</code> directory and populates it with the needed workflow files (<code class="language-plaintext highlighter-rouge">rperform-receive.yaml</code> and <code class="language-plaintext highlighter-rouge">rperform-comment.yaml</code>).</p>
+  </li>
+  <li>
+    <p>It also creates the <code class="language-plaintext highlighter-rouge">rperform</code> directory and populates it with files which make test configuration and customisation easier.</p>
+  </li>
+</ul>
+
+<h3 id="running-the-script">Running the script</h3>
+
+<p>One of the most important files in the <code class="language-plaintext highlighter-rouge">rperform</code> directory is the <code class="language-plaintext highlighter-rouge">script.R</code> file, which is where the Rperform test functions should be written. The functions written in the file will be ran when the workflow is triggered. You can write multiple Rperform functions in the <code class="language-plaintext highlighter-rouge">script.R</code> file.</p>
+
+<p>With only these two functions, you can run four different types of tests:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">Rperform::plot_metrics()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Rperform::plot_branchmetrics()</code></li>
+</ol>
+
+<p><strong>NOTE:</strong> The <code class="language-plaintext highlighter-rouge">save_plot</code> and <code class="language-plaintext highlighter-rouge">save_image</code> parameters must always be set to <code class="language-plaintext highlighter-rouge">TRUE</code> so that the outputs will be saved and displayed without any issues.</p>
+
+<p>After this set-up, anytime there is a Pull Request in the repository, the workflow will be triggered and the tests will be run. The results will be commented out by Github Bot in the PR.</p>
+
+<h3 id="customising-the-pr-comment">Customising the PR comment</h3>
+<p>There are the <code class="language-plaintext highlighter-rouge">header.R</code> and <code class="language-plaintext highlighter-rouge">footer.R</code> files inside the <code class="language-plaintext highlighter-rouge">rperform</code> directory which you can edit to customize the PR comment. The <code class="language-plaintext highlighter-rouge">glue</code> package is used to format and interpolate the strings so as to join the different sections of the comment. It must be noted that since any comment text is rendered in Markdown format, you must use the markdown syntax to edit the comment.</p>
+
+<h3 id="results">Results</h3>
+<p>Below is an example of the auto comment that is generated when the workflow is triggered by a PR.</p>
+
+<p><img width="824" alt="Screenshot 2022-08-12 at 11 55 57 AM" src="https://user-images.githubusercontent.com/47421661/184349192-2231a797-2de9-4de5-bf34-07ce49ac90db.png" /></p>
+
+<h3 id="testing-rperform-on-popular-r-packages">Testing Rperform on Popular R packages</h3>
+
+<p><strong>Rperform Test 1</strong></p>
+<ul>
+  <li>
+    <p>Test on the <a href="https://github.com/r-lib/styler">styler</a> package, main repository <a href="https://github.com/EngineerDanny/styler">here</a>.</p>
+  </li>
+  <li>
+    <p>Inside the <code class="language-plaintext highlighter-rouge">script.R</code> file, the following changes were made. Basically, the tests paths were updated to run the time_metrics functions. Below is the image of the updated script.R file.</p>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## TEST 1</span><span class="w">
+</span><span class="n">Rperform</span><span class="o">::</span><span class="n">plot_metrics</span><span class="p">(</span><span class="w">
+  </span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tests/testthat/test-rmd.R"</span><span class="p">,</span><span class="w">
+  </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">140</span><span class="p">,</span><span class="w">
+  </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+  </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+  </span><span class="n">total_width_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## TEST 2</span><span class="w">
+</span><span class="n">Rperform</span><span class="o">::</span><span class="n">plot_metrics</span><span class="p">(</span><span class="w">
+  </span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tests/testthat/test-escaping.R"</span><span class="p">,</span><span class="w">
+  </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">140</span><span class="p">,</span><span class="w">
+  </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+  </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+  </span><span class="n">total_width_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Sample <a href="https://github.com/EngineerDanny/styler/pull/1#issuecomment-1229242369">comment</a> created by running the tests.
+<img width="684" alt="Screenshot 2022-09-04 at 4 46 58 PM" src="https://user-images.githubusercontent.com/47421661/188338179-cc4f8371-29ff-4745-91e4-0a6282806b75.png" /></li>
+</ul>
+
+<p><strong>Rperform Test 2</strong></p>
+<ul>
+  <li>
+    <p>Test on the <a href="https://github.com/r-lib/devtools">devtools</a> package, original repository <a href="https://github.com/r-lib/devtools">here</a>.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">script.R</code> file is shown below :</p>
+  </li>
+</ul>
+
+<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## TEST 1</span><span class="w">
+</span><span class="n">Rperform</span><span class="o">::</span><span class="n">plot_metrics</span><span class="p">(</span><span class="w">
+    </span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tests/testthat/test-utils.R"</span><span class="p">,</span><span class="w">
+    </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"time"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w">
+    </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+    </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+    </span><span class="n">total_width_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">## TEST 2</span><span class="w">
+</span><span class="n">Rperform</span><span class="o">::</span><span class="n">plot_metrics</span><span class="p">(</span><span class="w">
+    </span><span class="n">test_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tests/testthat/test-check.R"</span><span class="p">,</span><span class="w">
+    </span><span class="n">metric</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"memory"</span><span class="p">,</span><span class="w"> </span><span class="n">num_commits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w">
+    </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+    </span><span class="n">save_plots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">
+    </span><span class="n">total_width_in</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Sample <a href="https://github.com/EngineerDanny/devtools/pull/1#issuecomment-1229734119">comment</a> created by running the tests.</li>
+</ul>
+
+<p><img width="914" alt="Screenshot 2022-09-04 at 7 23 14 PM" src="https://user-images.githubusercontent.com/47421661/188348860-1a94a080-eaf0-455d-a6d1-299617269df2.png" /></p>
+
