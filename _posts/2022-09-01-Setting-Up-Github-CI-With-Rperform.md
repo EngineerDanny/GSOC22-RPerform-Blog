@@ -1,3 +1,12 @@
+---
+toc: true
+layout: post
+description: How to set-up Rperform Github CI
+badges: true
+categories: [rperform, test, r]
+title: Setting Up Github CI With Rperform
+---
+
 ### Introduction
 
 Rperform has great flexibility and usability. It internally supports automating the tests of your code on Github and creating comments to display the results. To set-up Rperform for your GitHub CI worflow, initialize Rperform with the command :
